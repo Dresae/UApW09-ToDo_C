@@ -202,3 +202,53 @@ function renderCategories() {
     updateScrollButtons();
 }
 
+
+function renderTasks() {
+    const filteredTasks = state.currentCategory === 'All' 
+        ? state.tasks 
+        : state.tasks.filter(task => task.category === state.currentCategory);
+
+    if (filteredTasks.length === 0) {
+        tasksContainer.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-tasks"></i>
+                <p>No tasks ${state.currentCategory === 'All' ? 'yet' : `in ${state.currentCategory}`}. Add a new task!</p>
+            </div>
+        `;
+        return;
+    }
+
+    tasksContainer.innerHTML = filteredTasks
+        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .map(task => `
+            <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                <div class="task-content">
+                    <div class="task-text-wrapper">
+                        <span class="task-text">${task.text}</span>
+                        ${state.currentCategory === 'All' ? `
+                            <span class="category-tag">${task.category}</span>
+                        ` : ''}
+                    </div>
+                </div>
+                <button class="delete-task-btn">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `).join('');
+
+    // Add event listeners to task items
+    tasksContainer.querySelectorAll('.task-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (e) => {
+            const taskId = parseInt(e.target.closest('.task-item').dataset.id);
+            toggleTaskStatus(taskId);
+        });
+    });
+
+    tasksContainer.querySelectorAll('.delete-task-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const taskId = parseInt(e.target.closest('.task-item').dataset.id);
+            deleteTask(taskId);
+        });
+    });
+}
