@@ -262,3 +262,12 @@ function toggleDarkMode() {
         '<i class="fas fa-moon"></i>';
     localStorage.setItem('darkMode', state.darkMode);
 }
+
+// State Management
+function saveState() {
+    localStorage.setItem('tasks', JSON.stringify(state.tasks));
+    localStorage.setItem('categories', JSON.stringify(state.categories));
+}
+
+// Initialize the app
+document.addEventListener('DOMContentLoaded', initializeApp);
