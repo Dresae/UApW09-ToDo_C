@@ -1,0 +1,599 @@
+:root {
+    --primary: #8B5CF6;
+    --primary-light: #A78BFA;
+    --primary-dark: #7C3AED;
+    --secondary: #C4B5FD;
+    --background: #F9FAFB;
+    --surface: #ffffff;
+    --text: #1F2937;
+    --text-light: #6B7280;
+    --border: #E5E7EB;
+    --shadow: rgba(139, 92, 246, 0.1);
+    --shadow-strong: rgba(139, 92, 246, 0.2);
+}
+
+.dark-mode {
+    --primary: #A78BFA;
+    --primary-light: #C4B5FD;
+    --primary-dark: #8B5CF6;
+    --secondary: #7C3AED;
+    --background: #111827;
+    --surface: #1F2937;
+    --text: #F9FAFB;
+    --text-light: #D1D5DB;
+    --border: #374151;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-strong: rgba(0, 0, 0, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--surface);
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px var(--shadow);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+    padding: 2px;
+}
+
+.profile-name {
+    font-weight: 500;
+    color: var(--text);
+}
+
+.dark-mode-toggle {
+    background: var(--primary);
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Category Tabs */
+.categories-container {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background-color: var(--surface);
+    z-index: 90;
+    box-shadow: 0 4px 6px -1px var(--shadow);
+}
+
+.categories-tabs {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.categories-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.category-tab {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 20px;
+    background-color: var(--background);
+    color: var(--text);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.category-tab.active {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px var(--shadow-strong);
+}
+
+.category-tab:hover:not(.active) {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+/* Category Scroll Controls */
+.categories-wrapper {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.category-scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px var(--shadow-strong);
+    transition: all 0.3s ease;
+    z-index: 91;
+}
+
+.category-scroll-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.category-scroll-btn.left {
+    left: 0.5rem;
+}
+
+.category-scroll-btn.right {
+    right: 0.5rem;
+}
+
+.category-scroll-btn.hidden {
+    display: none;
+}
+
+
+/* Category Tab Modifications */
+.category-tab {
+    position: relative;
+    padding-right: 2.5rem; /* Space for delete button */
+}
+
+.category-delete-btn {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.category-tab:hover .category-delete-btn {
+    opacity: 1;
+}
+
+.category-delete-btn:hover {
+    color: #EF4444;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Confirmation Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background-color: var(--surface);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px var(--shadow);
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active .modal {
+    transform: scale(1);
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.modal-content {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.modal-btn.cancel {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.modal-btn.delete {
+    background-color: #EF4444;
+    color: white;
+}
+
+.modal-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* Main Content */
+.main-container {
+    max-width: 800px;
+    margin: 160px auto 2rem;
+    padding: 0 1rem;
+}
+
+/* Task Input */
+.task-input-container {
+    background-color: var(--surface);
+    padding: 1.5rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.task-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background-color: var(--background);
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.task-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--shadow);
+}
+
+.add-task-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.add-task-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+/* Tasks List */
+.tasks-container {
+    background-color: var(--surface);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px var(--shadow);
+    min-height: 200px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid var(--primary);
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    place-content: center;
+    transition: all 0.3s ease;
+}
+
+.task-checkbox::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    transform: scale(0);
+    transition: transform 0.3s ease;
+    box-shadow: inset 1em 1em var(--primary);
+    transform-origin: center;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.task-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.task-text {
+    flex: 1;
+    color: var(--text);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: var(--text-light);
+}
+
+.delete-task-btn {
+    background: none;
+    border: none;
+    color: #EF4444;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.delete-task-btn:hover {
+    opacity: 1;
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+
+
+
+
+
+.category-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    background-color: var(--primary-light);
+    color: white;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover .category-tag {
+    opacity: 1;
+}
+
+.task-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.task-text-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0; /* For text truncation */
+}
+
+.task-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Ensure the All tab is always visible */
+.category-tab[data-category="All"] {
+    background-color: var(--primary-dark);
+    color: white;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.category-tab[data-category="All"]:not(.active):hover {
+    background-color: var(--primary);
+}
+
+/* Update task item styles for better spacing */
+.task-item {
+    padding: 0.75rem 1rem;
+}
+
+/* Category count badge */
+.category-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 10px;
+    background-color: var(--primary-light);
+    color: white;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+.category-tab.active .category-count {
+    background-color: white;
+    color: var(--primary);
+}
+
+
+
+
+
+
+/* Floating Add Category Button */
+.add-category-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 6px -1px var(--shadow-strong);
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+.add-category-btn:hover {
+    transform: scale(1.1);
+    background-color: var(--primary-dark);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-light);
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+
+    .main-container {
+        margin-top: 140px;
+    }
+
+    .task-input-container,
+    .tasks-container {
+        border-radius: 12px;
+        padding: 1rem;
+    }
+
+    .add-category-btn {
+        bottom: 1rem;
+        right: 1rem;
+        width: 50px;
+        height: 50px;
+    }
+}
