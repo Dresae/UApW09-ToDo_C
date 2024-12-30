@@ -102,3 +102,26 @@ function deleteTask(taskId) {
     saveState();
     renderTasks();
 }
+
+
+function addNewCategory() {
+    const categoryName = prompt('Enter new category name:');
+    if (categoryName && !state.categories.includes(categoryName)) {
+        state.categories.push(categoryName);
+        saveState();
+        renderCategories();
+        
+        // Scroll to the new category
+        setTimeout(() => {
+            categoriesTabs.scrollLeft = categoriesTabs.scrollWidth;
+            updateScrollButtons();
+        }, 100);
+    }
+}
+
+function updateScrollButtons() {
+    const { scrollLeft, scrollWidth, clientWidth } = categoriesTabs;
+    
+    scrollLeftBtn.classList.toggle('hidden', scrollLeft <= 0);
+    scrollRight.classList.toggle('hidden', scrollLeft >= scrollWidth - clientWidth);
+}
