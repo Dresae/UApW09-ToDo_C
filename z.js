@@ -252,3 +252,13 @@ function renderTasks() {
         });
     });
 }
+
+// Dark Mode Toggle
+function toggleDarkMode() {
+    state.darkMode = !state.darkMode;
+    document.body.classList.toggle('dark-mode');
+    darkModeToggle.innerHTML = state.darkMode ? 
+        '<i class="fas fa-sun"></i>' : 
+        '<i class="fas fa-moon"></i>';
+    localStorage.setItem('darkMode', state.darkMode);
+}
