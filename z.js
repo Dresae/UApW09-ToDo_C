@@ -66,3 +66,32 @@ function setupEventListeners() {
     confirmDeleteBtn.addEventListener('click', executeDeleteCategory);
     
 }
+
+function addTask() {
+    const text = taskInput.value.trim();
+    if (text) {
+        const newTask = {
+            id: Date.now(),
+            text,
+            completed: false,
+            category: state.currentCategory === 'All' ? 'All' : state.currentCategory,
+            createdAt: new Date().toISOString()
+        };
+
+        state.tasks.push(newTask);
+        saveState();
+        renderCategories(); // Added to update counts
+        renderTasks();
+        taskInput.value = '';
+        taskInput.focus();
+    }
+}
+
+function toggleTaskStatus(taskId) {
+    const task = state.tasks.find(t => t.id === taskId);
+    if (task) {
+        task.completed = !task.completed;
+        saveState();
+        renderTasks();
+    }
+}
