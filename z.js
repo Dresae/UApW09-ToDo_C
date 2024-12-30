@@ -138,3 +138,22 @@ function closeDeleteModal() {
     categoryToDelete = null;
 }
 
+
+function executeDeleteCategory() {
+    if (categoryToDelete && state.categories.length > 1) { 
+        // Remove category and its tasks
+        state.tasks = state.tasks.filter(task => task.category !== categoryToDelete);
+        state.categories = state.categories.filter(cat => cat !== categoryToDelete);
+        
+        // If current category is being deleted, switch to 'All'
+        if (state.currentCategory === categoryToDelete) {
+            state.currentCategory = 'All';
+        }
+        
+        saveState();
+        renderCategories();
+        renderTasks();
+        closeDeleteModal();
+    }
+}
+
