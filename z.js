@@ -102,4 +102,3 @@ function deleteTask(taskId) {
     saveState();
     renderTasks();
 }
-
