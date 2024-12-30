@@ -125,3 +125,16 @@ function updateScrollButtons() {
     scrollLeftBtn.classList.toggle('hidden', scrollLeft <= 0);
     scrollRight.classList.toggle('hidden', scrollLeft >= scrollWidth - clientWidth);
 }
+
+
+
+function deleteCategory(category) {
+    categoryToDelete = category;
+    confirmationModal.classList.add('active');
+}
+
+function closeDeleteModal() {
+    confirmationModal.classList.remove('active');
+    categoryToDelete = null;
+}
+
