@@ -95,3 +95,11 @@ function toggleTaskStatus(taskId) {
         renderTasks();
     }
 }
+
+
+function deleteTask(taskId) {
+    state.tasks = state.tasks.filter(t => t.id !== taskId);
+    saveState();
+    renderTasks();
+}
+
