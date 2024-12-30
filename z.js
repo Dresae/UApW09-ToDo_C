@@ -157,3 +157,48 @@ function executeDeleteCategory() {
     }
 }
 
+
+function setCurrentCategory(category) {
+    state.currentCategory = category;
+    localStorage.setItem('currentCategory', category);
+    renderCategories();
+    renderTasks();
+}
+
+
+function renderCategories() {
+    const taskCounts = state.tasks.reduce((acc, task) => {
+        acc[task.category] = (acc[task.category] || 0) + 1;
+        return acc;
+    }, {});
+
+    const allCount = state.tasks.length;
+
+    categoriesTabs.innerHTML = state.categories.map(category => {
+        const count = category === 'All' ? allCount : (taskCounts[category] || 0);
+        return `
+            <button class="category-tab ${category === state.currentCategory ? 'active' : ''}" 
+                    data-category="${category}">
+                ${category}
+                <span class="category-count">${count}</span>
+                ${category !== 'All' ? `
+                    <button class="category-delete-btn" data-category="${category}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                ` : ''}
+            </button>
+        `;
+    }).join('');
+
+    // Add event listeners for delete buttons
+    categoriesTabs.querySelectorAll('.category-delete-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const category = e.target.closest('.category-delete-btn').dataset.category;
+            deleteCategory(category);
+        });
+    });
+
+    updateScrollButtons();
+}
+
