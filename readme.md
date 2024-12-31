@@ -1,7 +1,7 @@
 #  :bike: Web App - To-Do Tasks Tool
 
 ## :scroll: Overview 
-Sample description
+To-do tool with tags, category grouping and dark mode.
 
 ![screenshot](pics/screengif1.gif)
 ![screenshot](pics/screengif2.gif)
